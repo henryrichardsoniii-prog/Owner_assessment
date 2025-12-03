@@ -23,7 +23,7 @@ from deals
 group by 1 
 ) ,
 
-
+-- calculate monthly spend
 monthly_spend AS (
 SELECT
 TO_CHAR(TO_DATE(month, 'MON-YY'), 'MM-YY') as closed_month
@@ -34,6 +34,7 @@ From DEMO_DB.DE_CASE_HENRYRICHARDSON_SCHEMA._dev_AD_AND_SALES_DATA
 
 ,
 
+-- combinging all data into one
 Final_Data AS (
 SELECT
     d.closed_month
@@ -55,6 +56,7 @@ LEFT JOIN
     ON d.closed_month = m.closed_month
 ),
 
+-- grabbing avg ltv from final data 
 avg_ltv AS (
 select
 closed_month
@@ -64,6 +66,8 @@ from
 group by 1 
 )
 
+
+-- final results
 SELECT
 DISTINCT f.closed_month
 , f.total_cac as total_spend
